@@ -1,4 +1,5 @@
 (ns mpd-clj.utils
+  "utility functions for connecting to the mpd server"
   (:require [clojure.string :as str]
             [manifold.deferred :as d]
             [manifold.stream :as s]

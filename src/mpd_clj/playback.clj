@@ -1,9 +1,7 @@
 (ns mpd-clj.playback
+  "controlling playback http://www.musicpd.org/doc/protocol/playback_commands.html"
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
-
-;; controlling playback
-;; www.musicpd.org/doc/protocol/playback_commands.html
 
 (defn next-song
   "play next song in playlist"

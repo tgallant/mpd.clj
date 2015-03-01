@@ -1,9 +1,7 @@
 (ns mpd-clj.stored
+  "stored playlists http://www.musicpd.org/doc/protocol/playlist_files.html"
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
-
-;; stored playlists
-;; http://www.musicpd.org/doc/protocol/playlist_files.html
 
 (defn list-playlist
   "lists songs in the playlist"

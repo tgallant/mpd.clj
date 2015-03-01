@@ -1,9 +1,7 @@
 (ns mpd-clj.status
+  "querying mpd's status http://www.musicpd.org/doc/protocol/command_reference.html"
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
-
-;; querying mpd's status
-;; http://www.musicpd.org/doc/protocol/command_reference.html
 
 (defn currentsong
   "clears the current error message"

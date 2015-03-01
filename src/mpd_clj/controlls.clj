@@ -1,9 +1,7 @@
 (ns mpd-clj.controlls
+  "the current playlist http://www.musicpd.org/doc/protocol/queue.html"
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
-
-;; the current playlist
-;; http://www.musicpd.org/doc/protocol/queue.html
 
 (defn add-song
   "add the file URI to the current playlist. (URI can be directory or single file)"
@@ -85,7 +83,7 @@
   [id range]
   (send-cmd (str/join " " ["rangeid" id range])))
 
-(defn shuffle
+(defn shuffle-playlist
   "shuffles the current playlist. RANGE is optional."
   ([] (send-cmd "shuffle"))
   ([range] (send-cmd (str/join " " ["shuffle" range]))))

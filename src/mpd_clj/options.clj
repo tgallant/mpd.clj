@@ -1,9 +1,7 @@
 (ns mpd-clj.options
+  "playback options  http://www.musicpd.org/doc/protocol/playback_option_commands.html"
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
-
-;; playback options
-;; http://www.musicpd.org/doc/protocol/playback_option_commands.html
 
 (defn set-consume
   "consume playlist"
