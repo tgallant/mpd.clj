@@ -5,25 +5,25 @@
 
 (defn currentsong
   "clears the current error message"
-  []
-  (send-cmd "clearerror"))
+  [mpd-server]
+  (send-cmd "clearerror" mpd-server))
 
 (defn currentsong
   "get current song info"
-  []
-  (send-cmd "currentsong"))
+  [mpd-server]
+  (send-cmd "currentsong" mpd-server))
 
 (defn set-idle
   "returns noteworthy change in subsystems"
-  [subsystems]
-  (send-cmd (str/join " " [ "idle" subsystems])))
+  [subsystems mpd-server]
+  (send-cmd (str/join " " [ "idle" subsystems]) mpd-server))
 
 (defn status
   "get server status"
-  []
-  (send-cmd "status"))
+  [mpd-server]
+  (send-cmd "status" mpd-server))
 
 (defn stats
   "get server stats"
-  []
-  (send-cmd "status"))
+  [mpd-server]
+  (send-cmd "status" mpd-server))

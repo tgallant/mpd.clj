@@ -7,9 +7,6 @@
             [gloss.core :as gloss]
             [gloss.io :as io]))
 
-;; set host and port here
-(def mpd-server {:host "192.168.1.2" :port 6600})
-
 ;; protocol definition
 (def protocol (gloss/string :utf-8 :delimiters ["\n"]))
 
@@ -54,7 +51,7 @@
 
 (defn send-cmd
   "send request to mpd server"
-  [cmd]
+  [cmd mpd-server]
   (let [c @(client (:host mpd-server) (:port mpd-server))]
     @(s/put! c cmd)
     (return-obj c)))

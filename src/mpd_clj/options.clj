@@ -5,70 +5,70 @@
 
 (defn set-consume
   "consume playlist"
-  []
-  (send-cmd "consume 1"))
+  [mpd-server]
+  (send-cmd "consume 1" mpd-server))
 
 (defn unset-consume
   "un-consume playlist"
-  []
-  (send-cmd "consume 0"))
+  [mpd-server]
+  (send-cmd "consume 0" mpd-server))
 
 (defn set-crossfade
   "set crossfading between songs (in seconds)"
-  [s]
-  (send-cmd (str/join " " ["crossfade" s])))
+  [s mpd-server]
+  (send-cmd (str/join " " ["crossfade" s]) mpd-server))
 
 (defn set-mixrampdb
   "sets the threshold at which songs will be overlapped. (in decibels)"
-  [dbs]
-  (send-cmd (str/join " "  ["mixrampdb" dbs])))
+  [dbs mpd-server]
+  (send-cmd (str/join " "  ["mixrampdb" dbs]) mpd-server))
 
 (defn set-mixrampdelay
   "additional time subtracted from the overlap calculated by mixrampdb. (in seconds)"
-  [s]
-  (send-cmd (str/join " " ["mixrampdelay" s])))
+  [s mpd-server]
+  (send-cmd (str/join " " ["mixrampdelay" s]) mpd-server))
 
 (defn set-random
   "set random state"
-  []
-  (send-cmd "random 1"))
+  [mpd-server]
+  (send-cmd "random 1" mpd-server))
 
 (defn unset-random
   "unset random state"
-  []
-  (send-cmd "random 0"))
+  [mpd-server]
+  (send-cmd "random 0" mpd-server))
 
 (defn set-repeat
   "set repeat state"
-  []
-  (send-cmd "repeat 1"))
+  [mpd-server]
+  (send-cmd "repeat 1" mpd-server))
 
 (defn unset-repeat
   "unset repeat state"
-  []
-  (send-cmd "repeat 0"))
+  [mpd-server]
+  (send-cmd "repeat 0" mpd-server))
 
 (defn set-volume
   "set volume (integer between 0 and 100)"
-  [vol]
-  (send-cmd (str/join " " ["setvol" vol])))
+  [vol mpd-server]
+  (send-cmd (str/join " " ["setvol" vol]) mpd-server))
 
 (defn set-single
   "set single state"
-  []
-  (send-cmd "single 1"))
+  [mpd-server]
+  (send-cmd "single 1" mpd-server))
 
 (defn unset-single
   "unset single state"
-  []
-  (send-cmd "single 0"))
+  [mpd-server]
+  (send-cmd "single 0" mpd-server))
 
 (defn set-replay-gain-mode
   "set the replay gain mode. one of [off track album auto]"
-  [mode]
-  (send-cmd (str/join " " ["replay_gain_mode" mode])))
+  [mode mpd-server]
+  (send-cmd (str/join " " ["replay_gain_mode" mode]) mpd-server))
 
 (defn replay-gain-status
   "prints replay gain mode"
-  []
-  (send-cmd "replay_gain_status"))
+  [mpd-server]
+  (send-cmd "replay_gain_status" mpd-server))
