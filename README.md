@@ -51,7 +51,8 @@ string of either an IP address or FQDN. `port` expects an integer.
 
 ## Todo
 
-
+* make library feature complete with mpd documentation
+* write tests
 
 ## License
 
