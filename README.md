@@ -10,26 +10,29 @@ An MPD client implementation in clojure
 
 You can pull in the entire library by requireing mpd-clj.core
 
-    (ns example.core
-      (:require [mpd-clj.core :as mpd]))
+```clojure
+(ns example.core
+  (:require [mpd-clj.core :as mpd]))
 
-    ;; define the host and port of your mpd server
-    (def mpd-server {:host "10.0.0.1" :port 6600})
+;; define the host and port of your mpd server
+(def mpd-server {:host "10.0.0.1" :port 6600})
 
-    ;; execute the stats command on the specified server
-    (mpd/stats mpd-server)
+;; execute the stats command on the specified server
+(mpd/stats mpd-server)
+```
 
 Or you can pull in individual pieces 
 
-    (ns example.core
-      (:require [mpd-clj.status :refer :all])
+```clojure
+(ns example.core
+  (:require [mpd-clj.status :refer :all])
 
-    ;; define the host and port of your mpd server
-    (def mpd-server {:host "10.0.0.1" :port 6600})
+;; define the host and port of your mpd server
+(def mpd-server {:host "10.0.0.1" :port 6600})
 
-    ;; execute the stats command on the specified server
-    (stats mpd-server)
-
+;; execute the stats command on the specified server
+(stats mpd-server)
+```
 
 The namespaces you can pull in are
 
