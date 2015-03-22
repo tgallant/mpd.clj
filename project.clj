@@ -6,5 +6,6 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [aleph "0.4.0-SNAPSHOT"]
                  [manifold "0.1.0-SNAPSHOT"]
-                 [gloss "0.2.4"]]
+                 [gloss "0.2.4"]
+                 [potemkin "0.3.12"]]
   :plugins [[codox "0.8.10"]])
