@@ -3,7 +3,7 @@
   (:require [clojure.string :as str]
             [mpd-clj.utils :refer [send-cmd]]))
 
-(defn currentsong
+(defn clearerror
   "clears the current error message"
   [mpd-server]
   (send-cmd "clearerror" mpd-server))

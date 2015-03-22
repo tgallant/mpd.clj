@@ -1,8 +1,21 @@
 (ns mpd-clj.core
-  (:require [mpd-clj.options :refer :all]
-            [mpd-clj.playback :refer :all]
-            [mpd-clj.controlls :refer :all]
-            [mpd-clj.stored :refer :all]
-            [mpd-clj.db :refer :all]))
+  (:require [potemkin]
+            [mpd-clj.controlls]
+            [mpd-clj.db]
+            [mpd-clj.options]
+            [mpd-clj.playback]
+            [mpd-clj.status]
+            [mpd-clj.stored]))
 
+(defmacro import-all-vars
+  [namespace]
+  `(potemkin/import-vars
+    [~namespace
+     ~@(map key (ns-publics (the-ns namespace)))]))
 
+(import-all-vars mpd-clj.controlls)
+(import-all-vars mpd-clj.db)
+(import-all-vars mpd-clj.options)
+(import-all-vars mpd-clj.playback)
+(import-all-vars mpd-clj.status)
+(import-all-vars mpd-clj.stored)
