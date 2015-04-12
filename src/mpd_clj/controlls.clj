@@ -36,7 +36,7 @@
 (defn playlist
   "show current playlist"
   [mpd-server]
-  (send-cmd "playlist" mpd-server))
+  (send-cmd "playlist" mpd-server :isvec true))
 
 (defn playlist-find
   "find songs in the current playlist with strict matching"
@@ -50,8 +50,8 @@
 
 (defn playlist-info
   "display a list of all songs in the playlist, or for a range or single song"
-  ([mpd-server] (send-cmd "playlistinfo" mpd-server))
-  ([songpos mpd-server] (send-cmd (str/join " " ["playlistinfo" songpos]) mpd-server)))
+  ([mpd-server] (send-cmd "playlistinfo" mpd-server :isvec true))
+  ([songpos mpd-server] (send-cmd (str/join " " ["playlistinfo" songpos]) mpd-server :isvec true)))
 
 (defn playlist-search
   "searches case-insensitively for partial matches in the current playlist"
