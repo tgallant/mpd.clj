@@ -41,18 +41,17 @@
     (let [res @(s/take! c)
           res-key (res-str res)]
       (cond
-        (and (true? isvec) (re-find #"Id:" res))
+        (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
+        (and (true? isvec) (= "OK" res)) ret-vec
+
+        (true? isvec)
         (let [new-obj
               (assoc mpd-obj
                 (keyword (:key res-key))
                 (:value res-key))]
           (obj-inner new-obj (conj ret-vec new-obj)))
-
-        (and (true? isvec) (= "OK" res)) ret-vec
         
         (= "OK" res) (if (empty? mpd-obj) nil mpd-obj)
-
-        (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
 
         :else (obj-inner
                 (assoc mpd-obj
