@@ -34,34 +34,34 @@
     {:key (first res-arr)
      :value (last res-arr)}))
 
+(defn res-handle
+  "handles whether or not to return an array or a map"
+  [res mpd-obj ret-vec]
+  (let [res-kv (res-str res)
+        res-key (:key res-kv)
+        res-val (:value res-kv)]
+    (if ((keyword res-key) mpd-obj)
+      [{(keyword res-key) res-val} (conj ret-vec mpd-obj)]
+      [(assoc mpd-obj (keyword res-key) res-val) ret-vec])))
+
 (defn return-obj
   "takes response channel, returns clojure keyword map"
-  [c & {:keys [isvec] :or {isvec false}}]
+  [c]
   (defn obj-inner [mpd-obj ret-vec]
-    (let [res @(s/take! c)
-          res-key (res-str res)]
+    (let [res @(s/take! c)]
       (cond
         (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
-        (and (true? isvec) (= "OK" res)) ret-vec
-
-        (true? isvec)
-        (let [new-obj
-              (assoc mpd-obj
-                (keyword (:key res-key))
-                (:value res-key))]
-          (obj-inner new-obj (conj ret-vec new-obj)))
-        
-        (= "OK" res) (if (empty? mpd-obj) nil mpd-obj)
-
-        :else (obj-inner
-                (assoc mpd-obj
-                  (keyword (:key res-key))
-                  (:value res-key)) ret-vec))))
+        (= "OK" res) (if (empty? ret-vec) (if (empty? mpd-obj) nil mpd-obj) ret-vec)
+        :else
+        (let [next-obj (res-handle res mpd-obj ret-vec)
+              new-obj (get next-obj 0)
+              new-vec (get next-obj 1)]
+          (obj-inner new-obj new-vec)))))
   (obj-inner {} []))
 
 (defn send-cmd
   "send request to mpd server"
-  [cmd mpd-server & {:keys [isvec] :or {isvec false}}]
+  [cmd mpd-server]
   (let [c @(client (:host mpd-server) (:port mpd-server))]
     @(s/put! c cmd)
-    (return-obj c :isvec isvec)))
+    (return-obj c)))

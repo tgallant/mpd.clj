@@ -6,7 +6,8 @@
 (defn add-song
   "add the file URI to the current playlist. (URI can be directory or single file)"
   [uri mpd-server]
-  (send-cmd (str/join " " ["addid" uri]) mpd-server))
+  (let [esc-uri (str/join "" ["\"" uri "\""])]
+    (send-cmd (str/join " " ["addid" esc-uri]) mpd-server)))
 
 (defn clear-playlist
   "clear current playlist"
@@ -36,7 +37,7 @@
 (defn playlist
   "show current playlist"
   [mpd-server]
-  (send-cmd "playlist" mpd-server :isvec true))
+  (send-cmd "playlist" mpd-server))
 
 (defn playlist-find
   "find songs in the current playlist with strict matching"
@@ -50,8 +51,8 @@
 
 (defn playlist-info
   "display a list of all songs in the playlist, or for a range or single song"
-  ([mpd-server] (send-cmd "playlistinfo" mpd-server :isvec true))
-  ([songpos mpd-server] (send-cmd (str/join " " ["playlistinfo" songpos]) mpd-server :isvec true)))
+  ([mpd-server] (send-cmd "playlistinfo" mpd-server))
+  ([songpos mpd-server] (send-cmd (str/join " " ["playlistinfo" songpos]) mpd-server)))
 
 (defn playlist-search
   "searches case-insensitively for partial matches in the current playlist"

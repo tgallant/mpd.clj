@@ -26,4 +26,4 @@
 (defn stats
   "get server stats"
   [mpd-server]
-  (send-cmd "status" mpd-server))
+  (send-cmd "stats" mpd-server))
