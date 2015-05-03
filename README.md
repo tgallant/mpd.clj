@@ -4,7 +4,7 @@ An MPD client implementation in clojure
 
 ## Declaring Dependency
 
-`[mpd-clj "0.1.6"]`
+`[mpd-clj "0.1.7"]`
 
 ## Basic Usage
 
@@ -55,7 +55,7 @@ string of either an IP address or FQDN. `port` expects an integer.
 ## Todo
 
 * make library feature complete with mpd documentation
-* write tests
+* write more tests
 
 ## License
 

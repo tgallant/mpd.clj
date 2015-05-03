@@ -51,7 +51,7 @@
     (let [res @(s/take! c)]
       (cond
         (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
-        (= "OK" res) (if (empty? ret-vec) (if (empty? mpd-obj) nil mpd-obj) ret-vec)
+        (= "OK" res) (if (empty? ret-vec) (if (empty? mpd-obj) nil mpd-obj) (conj ret-vec mpd-obj))
         :else
         (let [next-obj (res-handle res mpd-obj ret-vec)
               new-obj (get next-obj 0)
