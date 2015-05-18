@@ -4,7 +4,7 @@ An MPD client implementation in clojure
 
 ## Declaring Dependency
 
-`[mpd-clj "0.1.7"]`
+`[mpd-clj "0.1.8"]`
 
 ## Basic Usage
 
