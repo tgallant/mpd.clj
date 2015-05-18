@@ -7,7 +7,7 @@
   "add the file URI to the current playlist. (URI can be directory or single file)"
   [uri mpd-server]
   (let [esc-uri (str/join "" ["\"" uri "\""])]
-    (send-cmd (str/join " " ["addid" esc-uri]) mpd-server)))
+    (send-cmd (str/join " " ["add" esc-uri]) mpd-server)))
 
 (defn clear-playlist
   "clear current playlist"
