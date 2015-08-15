@@ -50,7 +50,6 @@
   (defn obj-inner [mpd-obj ret-vec]
     (let [res @(s/take! c)]
       (cond
-        (nil? res) false
         (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
         (= "OK" res) (if (empty? ret-vec) (if (empty? mpd-obj) nil mpd-obj) (conj ret-vec mpd-obj))
         :else
