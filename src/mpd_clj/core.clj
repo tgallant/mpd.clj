@@ -1,5 +1,6 @@
 (ns mpd-clj.core
   (:require [potemkin]
+            [mpd-clj.utils]
             [mpd-clj.controlls]
             [mpd-clj.db]
             [mpd-clj.options]
@@ -13,6 +14,7 @@
     [~namespace
      ~@(map key (ns-publics (the-ns namespace)))]))
 
+(import-all-vars mpd-clj.utils)
 (import-all-vars mpd-clj.controlls)
 (import-all-vars mpd-clj.db)
 (import-all-vars mpd-clj.options)

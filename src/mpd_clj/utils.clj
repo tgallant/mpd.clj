@@ -8,9 +8,9 @@
             [gloss.io :as io]))
 
 ;; protocol definition
-(def protocol (gloss/string :utf-8 :delimiters ["\n"]))
+(def ^:private protocol (gloss/string :utf-8 :delimiters ["\n"]))
 
-(defn wrap-duplex-stream
+(defn- wrap-duplex-stream
   "wrap byte stream"
   [protocol s]
   (let [out (s/stream)]
@@ -23,18 +23,18 @@
 
 (defn client
   "client wrapper"
-  [host port]
-  (d/chain (tcp/client {:host host, :port port})
+  [server-obj]
+  (d/chain (tcp/client {:host (:host server-obj) :port (:port server-obj)})
     #(wrap-duplex-stream protocol %)))
 
-(defn res-str
+(defn- res-str
   "takes mpd protocol response, returns key value pair"
   [res]
   (let [res-arr (str/split res #": ")]
     {:key (first res-arr)
      :value (last res-arr)}))
 
-(defn res-handle
+(defn- res-handle
   "handles whether or not to return an array or a map"
   [res mpd-obj ret-vec]
   (let [res-kv (res-str res)
@@ -44,12 +44,13 @@
       [{(keyword res-key) res-val} (conj ret-vec mpd-obj)]
       [(assoc mpd-obj (keyword res-key) res-val) ret-vec])))
 
-(defn return-obj
+(defn- return-obj
   "takes response channel, returns clojure keyword map"
   [c]
   (defn obj-inner [mpd-obj ret-vec]
     (let [res @(s/take! c)]
       (cond
+        (nil? res) false
         (re-find #"OK MPD" res) (obj-inner mpd-obj ret-vec)
         (= "OK" res) (if (empty? ret-vec) (if (empty? mpd-obj) nil mpd-obj) (conj ret-vec mpd-obj))
         :else
@@ -62,6 +63,5 @@
 (defn send-cmd
   "send request to mpd server"
   [cmd mpd-server]
-  (let [c @(client (:host mpd-server) (:port mpd-server))]
-    @(s/put! c cmd)
-    (return-obj c)))
+  (s/put! @mpd-server cmd)
+  (return-obj @mpd-server))
