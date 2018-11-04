@@ -1,4 +1,4 @@
-(defproject mpd-clj "0.2.1"
+(defproject mpd-clj "0.2.2-SNAPSHOT"
   :description "a native clojure mpd client"
   :url "https://github.com/tgallant/mpd.clj"
   :license {:name "Eclipse Public License"
