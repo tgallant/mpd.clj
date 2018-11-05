@@ -64,3 +64,10 @@
   [cmd mpd-server]
   (s/put! @mpd-server cmd)
   (return-obj @mpd-server))
+
+(defn send-list-cmd
+  "send list command to mpd server"
+  [cmds mpd-server]
+  (let [cmds-str (str/join "\n" cmds)
+        cmd (str/join "\n" ["command_list_begin" cmds-str "command_list_end"])]
+    (send-cmd cmd mpd-server)))
