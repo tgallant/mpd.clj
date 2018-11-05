@@ -8,6 +8,8 @@
 (def mpd-server {:host "localhost" :port 6600})
 
 (defn client-with-response [response]
+  "Prepares a deferred which mocks the mpd client. The contained stream is filled
+with the response that should be tested."
   (let [client (d/deferred)
         stream (s/stream (count response))
         put (partial s/put! stream)]
@@ -40,6 +42,15 @@
       (is
         (= (type res) clojure.lang.PersistentVector)
         (= [{:a "1"} {:a "2"}] res)))))
+
+(deftest send-list-cmd-test
+  (let [client (d/deferred)
+        stream (s/stream)]
+    (d/success! client stream)
+    (s/put! stream "OK") ; this will stop processing stream content in return-obj
+    (u/send-list-cmd ["cmd1" "cmd2"] client) ; will be added to the stream and not processed
+    (is 
+     (= @(s/take! stream) "command_list_begin\ncmd1\ncmd2\ncommand_list_end"))))
 
 ;; db tests
 
